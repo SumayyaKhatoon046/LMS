@@ -1,0 +1,9 @@
+const Card = ({ children }) => {
+  return (
+    <div className="rounded-2xl border bg-white p-6 shadow hover:shadow-lg transition">
+      {children}
+    </div>
+  );
+};
+
+export default Card;
