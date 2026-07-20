@@ -47,3 +47,33 @@ PS E:\LMS\LMS Backend> node index.js
 
 cd LMS-Frontend        
 PS E:\LMS\LMS-Frontend> npm run dev 
+
+
+forgot password hogaya tho 
+Step 2
+
+Backend me ek temporary file banao:
+
+hashPassword.js
+
+Paste:
+
+const bcrypt = require("bcryptjs");
+
+bcrypt.hash("12345678", 10).then(hash => {
+  console.log(hash);
+});
+
+node hashPassword.js  yeh run karne ke baad hashvalue ata hai tab vo hashvalue ko mondo user ke hashvalue me rakho
+
+
+{
+  "name": "sumayya",
+  "email": "sumayyakhatoon046@gmail.com",
+  "password": "sumayya123"
+}
+
+{
+  "email": "sumayyakhatoon091@gmail.com",
+  "password": "12345678"
+}

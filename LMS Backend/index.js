@@ -9,7 +9,6 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpec = require("./swagger");
-
 const moduleRoutes = require("./routes/moduleRoutes");
 const authRoutes=require("./routes/authRoutes");
 const courseRoutes=require("./routes/courseRoutes");
@@ -25,6 +24,20 @@ const noteRoutes = require("./routes/noteRoutes");
 const resourceRoutes = require("./routes/resourceRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const aiRoutes = require("./routes/aiRoutes");
+const interviewRoutes = require("./routes/interviewRoutes");
+const placementRoutes = require("./routes/placementRoutes");
+const revisionRoutes = require("./routes/revisionRoutes");
+const studyPlannerRoutes = require("./routes/studyPlannerRoutes");
+const careerRoutes = require("./routes/careerRoutes");
+const resumeRoutes = require("./routes/resumeRoutes");
+const codeReviewRoutes = require("./routes/codeReviewRoutes");
+const communicationRoutes = require("./routes/communicationRoutes");
+const codeGuardRoutes = require("./routes/codeGuardRoutes");
+const hintRoutes = require("./routes/hintRoutes");
+const resumeScoreRoutes = require("./routes/resumeScoreRoutes");
+const mockInterviewRoutes = require("./routes/mockInterviewRoutes");
+
 
 
 app.use(express.json());
@@ -52,7 +65,21 @@ app.use("/api/notes", noteRoutes);
 app.use("/api/resources", resourceRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/admin", adminRoutes);
-
+app.use("/api/admin", adminRoutes);
+app.use("/api/ai", aiRoutes);
+app.use("/api/interview", interviewRoutes);
+app.use("/api/code-review", codeReviewRoutes);
+app.use("/api/placement", placementRoutes);
+app.use("/api/revision", revisionRoutes);
+app.use("/api/study-plan", studyPlannerRoutes);
+app.use("/api/career", careerRoutes);
+app.use("/api/resume", resumeRoutes);
+app.use("/api/code-review", codeReviewRoutes);
+app.use("/api/communication", communicationRoutes);
+app.use("/api/code-guard", codeGuardRoutes);
+app.use("/api/hints", hintRoutes);
+app.use("/api/resume-score", resumeScoreRoutes);
+app.use("/api/mock-interview", mockInterviewRoutes);
 
 
 

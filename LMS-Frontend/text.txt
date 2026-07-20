@@ -608,3 +608,17 @@ Upload profile image
 Backend almost complete
 Frontend integration pending
 500 error fix pending
+
+
+✅ Ye bhi sahi hai.
+
+Services Status:
+
+✅ roadmapService
+✅ interviewService
+✅ careerService
+✅ studyPlannerService
+✅ resumeService
+✅ mockInterviewService
+
+Kuch bhi replace mat karo.

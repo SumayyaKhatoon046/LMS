@@ -38,6 +38,9 @@ console.log("Existing User:", existingUser);
 
         });
 
+        user.isVerified = true;
+await user.save();
+
         // Generate Verification Token
         const verificationToken = user.getVerificationToken();
 
@@ -70,13 +73,10 @@ This verification link will expire in 24 hours.
         });
 
         res.status(201).json({
-
-            success: true,
-
-            message:
-                "Registration Successful. Please check your email to verify your account."
-
-        });
+    success: true,
+    message: "Registration Successful",
+    user
+});
 
     } catch (error) {
 

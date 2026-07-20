@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import {
   getUsers,
@@ -10,8 +10,14 @@ const ManageUsers = () => {
 
   const [users, setUsers] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
+
     fetchUsers();
+
   }, []);
 
   const fetchUsers = async () => {
@@ -20,11 +26,15 @@ const ManageUsers = () => {
 
       const data = await getUsers();
 
-      setUsers(data.users);
+      setUsers(data.users || []);
 
     } catch (error) {
 
       console.log(error);
+
+    } finally {
+
+      setLoading(false);
 
     }
 
@@ -64,98 +74,142 @@ const ManageUsers = () => {
 
   };
 
-  return (
+  const filteredUsers = useMemo(() => {
 
-    <div className="p-8">
+    return users.filter((user) =>
+      user.name?.toLowerCase().includes(search.toLowerCase()) ||
+      user.email?.toLowerCase().includes(search.toLowerCase())
+    );
 
-      <h1 className="text-3xl font-bold mb-6">
+  }, [users, search]);
+
+   return (
+
+    <div className="min-h-screen bg-slate-950 text-white p-8">
+
+      <h1 className="text-4xl font-bold mb-8">
         Manage Users
       </h1>
 
-      <table className="w-full border border-gray-300">
+      <input
+        type="text"
+        placeholder="Search User..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="w-full mb-8 p-3 rounded-xl bg-slate-900 border border-slate-700 outline-none"
+      />
 
-        <thead>
+      {loading ? (
 
-          <tr className="bg-gray-200">
+        <h2 className="text-center text-2xl">
+          Loading Users...
+        </h2>
 
-            <th className="p-3">Name</th>
+      ) : filteredUsers.length === 0 ? (
 
-            <th className="p-3">Email</th>
+        <h2 className="text-center text-2xl">
+          No Users Found
+        </h2>
 
-            <th className="p-3">Role</th>
+      ) : (
 
-            <th className="p-3">Action</th>
+        <div className="overflow-x-auto rounded-2xl">
 
-          </tr>
+          <table className="w-full">
 
-        </thead>
+            <thead className="bg-slate-900">
 
-        <tbody>
+              <tr>
 
-          {users.map((user) => (
+                <th className="p-4 text-left">
+                  Name
+                </th>
 
-            <tr
-              key={user._id}
-              className="text-center border-b"
-            >
+                <th className="p-4 text-left">
+                  Email
+                </th>
 
-              <td className="p-3">
-                {user.name}
-              </td>
+                <th className="p-4 text-center">
+                  Role
+                </th>
 
-              <td className="p-3">
-                {user.email}
-              </td>
+                <th className="p-4 text-center">
+                  Action
+                </th>
 
-              <td className="p-3">
+              </tr>
 
-                <select
-                  value={user.role}
-                  onChange={(e) =>
-                    handleRole(
-                      user._id,
-                      e.target.value
-                    )
-                  }
-                  className="border rounded px-2 py-1"
+            </thead>
+
+            <tbody>
+
+              {filteredUsers.map((user) => (
+
+                <tr
+                  key={user._id}
+                  className="border-b border-slate-800"
                 >
 
-                  <option value="student">
-                    Student
-                  </option>
+                  <td className="p-4">
+                    {user.name}
+                  </td>
 
-                  <option value="teacher">
-                    Teacher
-                  </option>
+                  <td className="p-4">
+                    {user.email}
+                  </td>
 
-                  <option value="admin">
-                    Admin
-                  </option>
+                  <td className="p-4 text-center">
 
-                </select>
+                    <select
+                      value={user.role}
+                      onChange={(e) =>
+                        handleRole(
+                          user._id,
+                          e.target.value
+                        )
+                      }
+                      className="bg-slate-800 border border-slate-700 rounded-lg px-3 py-2"
+                    >
+                      <option value="student">
+                        Student
+                      </option>
 
-              </td>
+                      <option value="teacher">
+                        Teacher
+                      </option>
 
-              <td className="p-3">
+                      <option value="admin">
+                        Admin
+                      </option>
 
-                <button
-                  onClick={() =>
-                    handleDelete(user._id)
-                  }
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                >
-                  Delete
-                </button>
+                    </select>
 
-              </td>
+                  </td>
 
-            </tr>
+                  <td className="p-4 text-center">
 
-          ))}
+                    <button
+                      onClick={() =>
+                        handleDelete(user._id)
+                      }
+                      className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg"
+                    >
+                      Delete
+                    </button>
 
-        </tbody>
+                  </td>
 
-      </table>
+                </tr>
+
+              ))}
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      )}
 
     </div>
 
@@ -163,4 +217,4 @@ const ManageUsers = () => {
 
 };
 
-export default ManageUsers;
+export default ManageUsers; 

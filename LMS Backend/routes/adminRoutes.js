@@ -11,7 +11,10 @@ const {
   deleteUser,
   getAllCourses,
   deleteCourse,
-  updateUserRole
+  updateUserRole,
+  getRecentActivity,
+  getNotifications,
+  createNotification,
 } = require("../controllers/adminController");
 
 router.get(
@@ -19,6 +22,13 @@ router.get(
   protect,
   roleCheck("admin"),
   getAdminDashboard
+);
+
+router.get(
+  "/users",
+  protect,
+  roleCheck("admin"),
+  getAllUsers
 );
 
 router.delete(
@@ -53,5 +63,29 @@ router.put(
     updateUserRole
 
 );
+
+
+router.get(
+  "/recent-activity",
+  protect,
+  roleCheck("admin"),
+  getRecentActivity
+);
+
+
+router.get(
+  "/notifications",
+  protect,
+  roleCheck("admin"),
+  getNotifications
+);
+
+router.post(
+  "/notifications",
+  protect,
+  roleCheck("admin"),
+  createNotification
+);
+
 
 module.exports = router;

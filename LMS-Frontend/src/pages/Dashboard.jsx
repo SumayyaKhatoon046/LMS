@@ -18,6 +18,18 @@ import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 import CourseCalendar from "../components/dashboard/CourseCalendar";
 import Leaderboard from "../components/dashboard/Leaderboard";
 import WeeklyReport from "../components/dashboard/WeeklyReport";
+import AIInterviewCard from "../components/dashboard/AIInterviewCard";
+import CodePractice from "../components/dashboard/CodePractice";
+import CodeExplanation from "../components/dashboard/CodeExplanation";
+import CommunicationCoach from "../components/dashboard/CommunicationCoach";
+import RevisionReminder from "../components/dashboard/RevisionReminder";
+import StudyPlanner from "../components/dashboard/StudyPlanner";
+import CareerPredictor from "../components/dashboard/CareerPredictor";
+import PlacementReadiness from "../components/dashboard/PlacementReadiness";
+import ResumeReview from "../components/dashboard/ResumeReview";
+import AIHint from "../components/dashboard/AIHint";
+import ResumeScore from "../components/dashboard/ResumeScore";
+import MockInterview from "../components/dashboard/MockInterview";
 
 import { getAllCourses, getMyCourses } from "../services/courseService";
 import { getMyCertificates } from "../services/certificateService";
@@ -28,7 +40,7 @@ const Dashboard = () => {
     totalCourses: 0,
     enrolledCourses: 0,
     certificates: 0,
-    progress: 0,
+   progress:0,
   });
 
   useEffect(() => {
@@ -44,7 +56,10 @@ const Dashboard = () => {
       totalCourses: allCourses.courses.length,
       enrolledCourses: myCourses.courses.length,
       certificates: certificates.certificates.length,
-      progress: 0,
+      progress: Math.floor(
+    (myCourses.courses.length /
+      (allCourses.courses.length || 1)) * 100
+  ),
     });
 
   } catch (err) {
@@ -121,7 +136,32 @@ const Dashboard = () => {
 
             <div className="space-y-6">
               <AIMentorCard />
-              <Achievements />
+
+<AIInterviewCard />
+
+<CodePractice />
+
+<CodeExplanation />
+
+<CommunicationCoach />
+
+<AIHint />
+
+<ResumeScore />
+
+<MockInterview />
+
+<CareerPredictor />
+
+<PlacementReadiness />
+
+<StudyPlanner />
+
+<RevisionReminder />
+
+<ResumeReview />
+
+<Achievements />
             </div>
 
           </div>

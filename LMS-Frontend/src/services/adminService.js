@@ -92,3 +92,56 @@ export const updateRole = async (
     return res.data;
 
 };
+
+
+// Recent Activity
+export const getRecentActivity = async () => {
+
+  const res = await axios.get(
+    `${API}/recent-activity`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    }
+  );
+
+  return res.data;
+
+};
+
+
+// ===============================
+// Notifications
+// ===============================
+
+export const getNotifications = async () => {
+
+  const res = await axios.get(
+    `${API}/notifications`,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    }
+  );
+
+  return res.data;
+
+};
+
+export const createNotification = async (notification) => {
+
+  const res = await axios.post(
+    `${API}/notifications`,
+    notification,
+    {
+      headers: {
+        Authorization: `Bearer ${getToken()}`
+      }
+    }
+  );
+
+  return res.data;
+
+};

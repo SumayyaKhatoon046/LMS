@@ -1215,3 +1215,204 @@ response:
     "success": true,
     "message": "Review Deleted Successfully"
 }
+
+
+Roadmap API test karo. #####
+
+http://localhost:5000/api/ai/roadmap -> post 
+
+body:none
+
+Response
+{
+    "success": true,
+    "student": {
+        "branch": "IT",
+        "year": "4",
+        "skills": "HTML,CSS,JavaScript",
+        "studyHours": 3
+    },
+}
+
+AI Interview API
+
+http://localhost:5000/api/ai/interview -> post
+
+body:
+{
+  "role": "MERN Developer"
+}
+
+response:
+{
+    "success": true,
+    "role": "MERN Developer",
+    "questions": [
+        "Introduce yourself.",
+        "Explain the Virtual DOM.",
+        "Difference between JWT and Sessions?",
+        "Explain MongoDB Aggregation.",
+        "How does Express Middleware work?"
+    ]
+}
+
+
+Communication Coach ######
+
+http://localhost:5000/api/communication -> post
+
+body:
+{
+  "answer": "I solved this problem using HashMap because it reduces the time complexity from O(n²) to O(n)."
+}
+
+response:
+{
+    "success": true,
+    "score": 90,
+    "feedback": "Good communication"
+}
+
+Test 5 – AI Hint
+
+http://localhost:5000/api/hints -> post
+
+body:
+{
+  "problem": "Two Sum"
+}
+
+
+response:
+{
+    "success": true,
+    "hint": "Think about using HashMap or Two Pointer approach instead of brute force."
+}
+
+
+Test 6 – Resume Score 
+
+http://localhost:5000/api/resume-score -> post 
+
+body: {}
+
+response:
+{
+  "success": true,
+  "score": 82,
+  "missingSkills": [
+    "Docker",
+    "AWS",
+    "System Design"
+  ],
+  "suggestions": [
+    "Add Projects",
+    "Add GitHub",
+    "Improve Resume Summary"
+  ]
+}
+
+
+✅ Test 7 – Mock Interview
+
+http://localhost:5000/api/mock-interview -> post
+
+body:
+{}
+
+response:
+
+{
+  "success": true,
+  "interview": {
+    "title": "Java Developer Mock Interview",
+    "questions": [
+      "Tell me about yourself.",
+      "Explain OOP.",
+      "Difference between ArrayList and LinkedList?",
+      "What is JVM?",
+      "Explain Exception Handling."
+    ]
+  }
+}
+
+
+Next Test – Career Predictor
+
+http://localhost:5000/api/career   -> get
+
+body: none
+
+response:
+{
+  {
+    "success": true,
+    "careers": [
+        {
+            "role": "MERN Developer",
+            "readiness": 82,
+            "level": "High"
+        },
+        {
+            "role": "Java Developer",
+            "readiness": 75,
+            "level": "Medium"
+        },
+  }]
+
+Next Test – Study Planner 
+
+http://localhost:5000/api/study-plan -> get 
+
+body: none
+
+response:
+{
+    "success": true,
+    "plan": [
+        {
+            "time": "09:00 AM",
+            "task": "Learn React",
+            "duration": "1 Hour"
+        },
+        {
+            "time": "11:00 AM",
+            "task": "Solve 2 DSA Problems",
+            "duration": "45 Minutes"
+        },
+        {
+            "time": "02:00 PM",
+            "task": "Practice Aptitude",
+            "duration": "30 Minutes"
+        }
+    ]
+}
+
+
+✅ Next Test – Resume Review
+
+http://localhost:5000/api/resume -> get
+
+body: none
+
+response:
+{
+    "success": true,
+    "review": {
+        "atsScore": 82,
+        "strengths": [
+            "Good Projects",
+            "Strong Technical Skills",
+            "Clean Resume"
+        ],
+        "improvements": [
+            "Add GitHub Profile",
+            "Improve Summary",
+            "Add Quantified Achievements"
+        ]
+    }
+}
+
+
+
+

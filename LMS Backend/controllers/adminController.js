@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Course = require("../models/Course");
 const Certificate = require("../models/Certificate");
+const Notification = require("../models/Notification");
 
 exports.getAdminDashboard = async (req, res) => {
 
@@ -68,34 +69,20 @@ exports.getAdminDashboard = async (req, res) => {
 
 
 exports.getAllUsers = async (req, res) => {
-
   try {
-
-    const users = await User.find()
-      .select("-password");
+    const users = await User.find().select("-password");
 
     res.status(200).json({
-
       success: true,
-
-      users
-
+      users,
     });
-
   } catch (error) {
-
     res.status(500).json({
-
       success: false,
-
-      message: error.message
-
+      message: error.message,
     });
-
   }
-
 };
-
 exports.deleteUser = async (req, res) => {
 
   try {
@@ -257,6 +244,177 @@ exports.updateUserRole = async (req, res) => {
       success: false,
 
       message: error.message
+
+    });
+
+  }
+
+};
+
+
+// ======================================
+// Recent Activity
+// ======================================
+
+exports.getRecentActivity = async (req, res) => {
+
+  try {
+
+    const users = await User.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("name createdAt");
+
+    const courses = await Course.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("title createdAt");
+
+    const certificates = await Certificate.find()
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .select("createdAt");
+
+    const activity = [];
+
+    users.forEach((user) => {
+
+      activity.push({
+
+        type: "User",
+
+        message: `${user.name} registered`,
+
+        createdAt: user.createdAt,
+
+      });
+
+    });
+
+    courses.forEach((course) => {
+
+      activity.push({
+
+        type: "Course",
+
+        message: `Course "${course.title}" created`,
+
+        createdAt: course.createdAt,
+
+      });
+
+    });
+
+    certificates.forEach((certificate) => {
+
+      activity.push({
+
+        type: "Certificate",
+
+        message: "Certificate Generated",
+
+        createdAt: certificate.createdAt,
+
+      });
+
+    });
+
+    activity.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    res.status(200).json({
+
+      success: true,
+
+      activity: activity.slice(0, 10),
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message,
+
+    });
+
+  }
+
+};
+
+
+// ======================================
+// Get All Notifications
+// ======================================
+
+exports.getNotifications = async (req, res) => {
+
+  try {
+
+    const notifications = await Notification.find()
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+
+      success: true,
+
+      notifications,
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message,
+
+    });
+
+  }
+
+};
+
+
+// ======================================
+// Create Notification
+// ======================================
+
+exports.createNotification = async (req, res) => {
+
+  try {
+
+    const { title, message, type } = req.body;
+
+    const notification = await Notification.create({
+
+      title,
+
+      message,
+
+      type,
+
+    });
+
+    res.status(201).json({
+
+      success: true,
+
+      notification,
+
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+
+      success: false,
+
+      message: error.message,
 
     });
 
